@@ -40,10 +40,36 @@
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Camera App</title>
+	
+	<style type="text/css">
+	/*button {
+	
+		width:100%;
+		font-size: 18pt;
+	
+	
+	}*/
+	</style>
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="js/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="js/bootstrap.min.js"></script> 
 </head>
 
 <body>
-	<input type="button" value="Open Camera" onclick="openCamera()" />
+	
+
+	
+	<img id="imageFile" style="width:100%" />
+	
+   <button type="button" class="btn btn-success btn-lg" onclick="openCamera()">
+    <span class="glyphicon glyphicon-camera"></span> Camera
+  </button>
+	
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
@@ -51,7 +77,6 @@
 		document.addEventListener("deviceready", onDeviceReady, false);
 		function onDeviceReady() {
 			console.log(navigator.camera);
-			alert("Camera Ready!")
 		}
 		function setOptions(srcType) {
 			var options = {
@@ -63,6 +88,7 @@
 				encodingType: Camera.EncodingType.JPEG,
 				mediaType: Camera.MediaType.PICTURE,
 				allowEdit: true,
+				saveToPhotoAlbum: true,
 				correctOrientation: true  //Corrects Android orientation quirks
 			}
 			return options;
@@ -89,6 +115,7 @@
 
 			var elem = document.getElementById('imageFile');
 			elem.src = imgUri;
+			
 		}
 		function createNewFileEntry(imgUri) {
 			window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
@@ -97,7 +124,7 @@
 				dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
 
 					// Do something with it, like write to it, upload it, etc.
-					// writeFile(fileEntry, imgUri);
+					//writeFile(fileEntry, imgUri);
 					console.log("got file: " + fileEntry.fullPath);
 					// displayFileData(fileEntry.fullPath, "File copied to");
 
@@ -105,6 +132,19 @@
 
 			}, onErrorResolveUrl);
 		}
+		function onErrorResolveUrl() {
+		
+		console.log(error);
+		
+		
+		}
+		function onErrorCreateFile() {
+		
+		console.log(error);
+		
+		
+		}
+		
     </script>
 </body>
 
