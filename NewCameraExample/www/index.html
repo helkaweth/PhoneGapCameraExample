@@ -64,10 +64,13 @@
 	
 
 	
-	<img id="imageFile" style="width:100%" />
+	<img id="imageFile" style="width:100%" src="http://pre00.deviantart.net/e9c7/th/pre/f/2013/284/9/1/vegeta_el_principe_saiyajin_by_salvamakoto-d6q1rtm.png" />
 	
    <button type="button" class="btn btn-success btn-lg" onclick="openCamera()">
     <span class="glyphicon glyphicon-camera"></span> Camera
+  </button>
+     <button type="button" class="btn btn-warning btn-lg" onclick="removeImage()">
+    <span class="glyphicon glyphicon-trash"></span> Remove Image
   </button>
 	
     <script type="text/javascript" src="cordova.js"></script>
@@ -76,7 +79,8 @@
         app.initialize();
 		document.addEventListener("deviceready", onDeviceReady, false);
 		function onDeviceReady() {
-			console.log(navigator.camera);
+			//console.log(navigator.camera);
+			console.log("WOOHOO!WE'RE GOING!");
 		}
 		function setOptions(srcType) {
 			var options = {
@@ -94,7 +98,7 @@
 			return options;
 		}
 		function openCamera(selection) {
-
+			
 			var srcType = Camera.PictureSourceType.CAMERA;
 			var options = setOptions(srcType);
 			var func = createNewFileEntry;
@@ -114,6 +118,7 @@
 		function displayImage(imgUri) {
 
 			var elem = document.getElementById('imageFile');
+			console.log(imgUri);
 			elem.src = imgUri;
 			
 		}
@@ -134,14 +139,22 @@
 		}
 		function onErrorResolveUrl() {
 		
-		console.log(error);
+			console.log(error);
 		
 		
 		}
 		function onErrorCreateFile() {
 		
-		console.log(error);
+			console.log(error);
 		
+		
+		}
+		function removeImage() {
+			var remThis = confirm("Are you sure you want to remove the image?");
+			if (remThis == true) {
+				var elem = document.getElementById('imageFile');
+				elem.src = "";
+			}
 		
 		}
 		
